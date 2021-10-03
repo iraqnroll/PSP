@@ -30,17 +30,11 @@ public class EmailValidator {
                 && emailHasCorrectLocalPart(email);
     }
 
-    //Teste nepagalvota apie duplikatus simbolius ('@', '.', ir tt..)
     private boolean emailContainsAtSign(String email) {
         var count = email.chars().filter(ch -> ch == '@').count();
 
         return count == 1;
     }
-    /*
-    Turetu buti isskirtas tikrinimas neleistinu
-    simboliu domenui ir lokaliai daliai, nes jiems taikomi skirtingi reikalavimai.
-    Sito metodo manau visiskai nereikia.
-     */
 
     private boolean emailHasCorrectDomain(String email) {
         String domain = email.split("@")[1];
@@ -68,7 +62,6 @@ public class EmailValidator {
         }
     }
 
-    //Nebuvo tikrinama email adreso username dalis.
     private boolean emailHasCorrectLocalPart(String email){
         String localPart = email.split("@")[0];
 
