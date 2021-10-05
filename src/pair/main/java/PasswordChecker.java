@@ -1,9 +1,10 @@
 package pair.main.java;
 
-import java.util.ArrayList;
+import pair.main.java.interfaces.validators.ValidatorPassword;
+
 import java.util.List;
 
-public class PasswordChecker {
+public class PasswordChecker implements ValidatorPassword {
     private int minLength;
 
     private List<Character> specialSymbols;
@@ -14,18 +15,18 @@ public class PasswordChecker {
         this.specialSymbols = specialSymbols;
     }
 
-    public boolean validatePassword(String password) {
+    public boolean validate(String password) {
         return passwordNotShorterThan(password)
                 && passwordContainsUppercase(password)
                 && passwordContainsSpecSymbol(password);
     }
 
-    private boolean passwordNotShorterThan(String password) {
+    public boolean passwordNotShorterThan(String password) {
 
         return password.length() >= this.minLength;
     }
 
-    private boolean passwordContainsUppercase(String password) {
+    public boolean passwordContainsUppercase(String password) {
 
         for(int i=0; i< password.length(); i++)
         {
@@ -38,7 +39,7 @@ public class PasswordChecker {
         return false;
     }
 
-    private boolean passwordContainsSpecSymbol(String password) {
+    public boolean passwordContainsSpecSymbol(String password) {
 
         for(int i=0; i < password.length(); i++)
         {

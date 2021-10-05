@@ -2,21 +2,19 @@ package pair.test.java;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pair.main.java.PhoneValidator;
-import ps.EmailValidator;
+import pair.main.java.PhoneChecker;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PhoneValidatorTest {
+public class PhoneCheckerTest {
 
     public HashMap<String, Integer> validationRules;
 
     private HashMap<String, String> internationalCodes;
 
-    PhoneValidator phoneValidator;
+    PhoneChecker phoneChecker;
 
     @BeforeEach
     void setUp(){
@@ -26,14 +24,14 @@ public class PhoneValidatorTest {
         validationRules.put("+370", 8);
         internationalCodes.put("8", "+370");
 
-        phoneValidator = new PhoneValidator(validationRules, internationalCodes);
+        phoneChecker = new PhoneChecker(validationRules, internationalCodes);
     }
 
     @Test
     void phoneContainsNumbersOnly_shouldPass() {
         String phone = "+37000000000";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertTrue(result);
     }
@@ -42,7 +40,7 @@ public class PhoneValidatorTest {
     void phoneContainsNumbersOnly_shouldFail() {
         String phone = "+3700000000a";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertFalse(result);
     }
@@ -51,7 +49,7 @@ public class PhoneValidatorTest {
     void phoneStartsWith_shouldPass() {
         String phone = "+37000000000";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertTrue(result);
     }
@@ -60,7 +58,7 @@ public class PhoneValidatorTest {
     void phoneStartsWith_shouldFail() {
         String phone = "-37000000000";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertFalse(result);
     }
@@ -69,7 +67,7 @@ public class PhoneValidatorTest {
     void phoneLengthCorrect_shouldPass() {
         String phone = "+37000000000";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertTrue(result);
     }
@@ -78,7 +76,7 @@ public class PhoneValidatorTest {
     void phoneLengthCorrect_shouldFail() {
         String phone = "+370";
 
-        boolean result = phoneValidator.validatePhone(phone);
+        boolean result = phoneChecker.validate(phone);
 
         assertFalse(result);
     }

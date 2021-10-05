@@ -1,21 +1,24 @@
 package pair.main.java;
 
+import pair.main.java.interfaces.validators.ValidatorPhone;
+import pair.main.java.interfaces.utils.PhoneUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class PhoneValidator {
+public class PhoneChecker implements ValidatorPhone, PhoneUtils {
 
     private HashMap<String, Integer> validationRules;
     private HashMap<String, String> internationalCodes;
 
-    public PhoneValidator(HashMap<String, Integer> validationRules,
-                          HashMap<String, String> internationalCodes)
+    public PhoneChecker(HashMap<String, Integer> validationRules,
+                        HashMap<String, String> internationalCodes)
     {
         this.validationRules = validationRules;
         this.internationalCodes = internationalCodes;
     }
 
-    public boolean validatePhone(String phone) {
+    public boolean validate(String phone) {
 
         return phoneContainsNumbersOnly(phone) && phoneLengthCorrect(phone);
     }
@@ -24,11 +27,11 @@ public class PhoneValidator {
         validationRules.put(prefix, length);
     }
 
-    private boolean phoneContainsNumbersOnly(String phone) {
+    public boolean phoneContainsNumbersOnly(String phone) {
         return phone.chars().allMatch(ch -> Character.isDigit(ch) || ch == '+');
     }
 
-    private String changeToInternationalCode(String phone) {
+    public String changeToInternationalCode(String phone) {
         for(Map.Entry m : internationalCodes.entrySet())
         {
             if(phone.contains((CharSequence) m.getKey()))
@@ -39,7 +42,7 @@ public class PhoneValidator {
         return phone;
     }
 
-    private boolean phoneLengthCorrect(String phone) {
+    public boolean phoneLengthCorrect(String phone) {
         for(Map.Entry m : validationRules.entrySet())
         {
             if(phone.contains((CharSequence) m.getKey()))

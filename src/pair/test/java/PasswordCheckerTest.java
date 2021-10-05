@@ -15,7 +15,7 @@ class PasswordCheckerTest {
     void passwordNotShorterThan_shouldPass() {
         String password = "Pass@123";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertTrue(result);
     }
@@ -24,7 +24,7 @@ class PasswordCheckerTest {
     void passwordNotShorterThan_shouldFail() {
         String password = "Pass@1";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertFalse(result);
     }
@@ -33,7 +33,7 @@ class PasswordCheckerTest {
     void passwordContainsUppercase_shouldPass() {
         String password = "Pass@123";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertTrue(result);
     }
@@ -42,7 +42,7 @@ class PasswordCheckerTest {
     void passwordContainsUppercase_shouldFail() {
         String password = "pass@123";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertFalse(result);
     }
@@ -51,7 +51,7 @@ class PasswordCheckerTest {
     void passwordContainsSpecSymbol_shouldPass() {
         String password = "Pass@123";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertTrue(result);
     }
@@ -60,7 +60,7 @@ class PasswordCheckerTest {
     void passwordContainsSpecSymbol_shouldFail() {
         String password = "Pass123";
 
-        boolean result = passwordChecker.validatePassword(password);
+        boolean result = passwordChecker.validate(password);
 
         assertFalse(result);
     }

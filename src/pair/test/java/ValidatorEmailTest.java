@@ -1,14 +1,14 @@
 package pair.test.java;
 
 import org.junit.jupiter.api.Test;
-import pair.main.java.EmailValidator;
+import pair.main.java.EmailChecker;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmailValidatorTest {
+class ValidatorEmailTest {
 
     private List<Character> localPartSymbols = Arrays.asList(
             '1','2','3','4','5','6','7','8','9','0','-');
@@ -18,7 +18,7 @@ class EmailValidatorTest {
             '+','-','_','~','@','.','!','#','$','%',
             '&','\'','/','=','?','^','`','{','|','}');
 
-    EmailValidator emailValidator = new EmailValidator(
+    EmailChecker emailChecker = new EmailChecker(
             64,
             63,
             localPartSymbols,
@@ -29,7 +29,7 @@ class EmailValidatorTest {
     void emailContainsAtSign_shouldPass() {
         String email = "email@mail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertTrue(result);
     }
@@ -38,7 +38,7 @@ class EmailValidatorTest {
     void emailContainsAtSign_shouldFail() {
         String email = "emailmail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertFalse(result);
     }
@@ -47,7 +47,7 @@ class EmailValidatorTest {
     void emailDoesNotContainInvalidSymbols_shouldPass() {
         String email = "email@mail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertTrue(result);
     }
@@ -56,7 +56,7 @@ class EmailValidatorTest {
     void emailDoesNotContainInvalidSymbols_shouldFail() {
         String email = "email@ mail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertFalse(result);
     }
@@ -65,7 +65,7 @@ class EmailValidatorTest {
     void emailHasCorrectDomain_shouldPass() {
         String email = "email@mail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertTrue(result);
     }
@@ -74,7 +74,7 @@ class EmailValidatorTest {
     void emailHasCorrectDomain_shouldFail() {
         String email = "email@wrong domain.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertFalse(result);
     }
@@ -83,7 +83,7 @@ class EmailValidatorTest {
     void emailHasCorrectTld_ShouldPass() {
         String email = "email@mail.com";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertTrue(result);
     }
@@ -92,7 +92,7 @@ class EmailValidatorTest {
     void emailHasCorrectTld_ShouldFail() {
         String email = "email@mail.com wrong";
 
-        boolean result = emailValidator.validateEmail(email);
+        boolean result = emailChecker.validate(email);
 
         assertFalse(result);
     }

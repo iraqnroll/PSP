@@ -1,9 +1,10 @@
 package pair.main.java;
 
-import java.util.Arrays;
+import pair.main.java.interfaces.validators.ValidatorEmail;
+
 import java.util.List;
 
-public class EmailValidator {
+public class EmailChecker implements ValidatorEmail {
     /* Source:
     https://en.wikipedia.org/wiki/Email_address#Local-part
     https://en.wikipedia.org/wiki/Email_address#Domain
@@ -15,7 +16,7 @@ public class EmailValidator {
     private List<Character> allowedLocalSymbols;
     private List<Character> allowedDomainSymbols;
 
-    public EmailValidator(int localLength, int domainLength, List<Character> localSymbols, List<Character> domainSymbols)
+    public EmailChecker(int localLength, int domainLength, List<Character> localSymbols, List<Character> domainSymbols)
     {
         this.maxLocalPartLength = localLength;
         this.maxDomainPartLength = domainLength;
@@ -24,19 +25,19 @@ public class EmailValidator {
         this.allowedLocalSymbols = localSymbols;
     }
 
-    public boolean validateEmail(String email) {
+    public boolean validate(String email) {
         return emailContainsAtSign(email)
                 && emailHasCorrectDomain(email)
                 && emailHasCorrectLocalPart(email);
     }
 
-    private boolean emailContainsAtSign(String email) {
+    public boolean emailContainsAtSign(String email) {
         var count = email.chars().filter(ch -> ch == '@').count();
 
         return count == 1;
     }
 
-    private boolean emailHasCorrectDomain(String email) {
+    public boolean emailHasCorrectDomain(String email) {
         String domain = email.split("@")[1];
         if(!domain.isEmpty())
         {
@@ -62,7 +63,7 @@ public class EmailValidator {
         }
     }
 
-    private boolean emailHasCorrectLocalPart(String email){
+    public boolean emailHasCorrectLocalPart(String email){
         String localPart = email.split("@")[0];
 
         if(localPart.length() <= maxLocalPartLength && !localPart.isEmpty())
